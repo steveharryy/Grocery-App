@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@layer base {
+    * {
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    button {
+        cursor: pointer;
+    }
+}
+
 @layer components {
     @keyframes marqueeScroll {
         0% {
@@ -8,12 +18,6 @@
         100% {
             transform: translateX(-50%);
         }
-    }
-}
-
-@layer base {
-    button {
-        cursor: pointer;
     }
 }
 

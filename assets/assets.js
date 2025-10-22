@@ -16,6 +16,10 @@ import product_img9 from "./product_img9.png"
 import product_img10 from "./product_img10.png"
 import product_img11 from "./product_img11.png"
 import product_img12 from "./product_img12.png"
+import product_img13 from "./product_img13.png"
+import product_img14 from "./product_img14.png"
+import product_img15 from "./product_img15.png"
+import product_img16 from "./product_img16.png"
 import { ClockFadingIcon, HeadsetIcon, SendIcon } from "lucide-react";
 import profile_pic1 from "./profile_pic1.jpg"
 import profile_pic2 from "./profile_pic2.jpg"
@@ -26,9 +30,10 @@ export const assets = {
     hero_product_img1, hero_product_img2, gs_logo,
     product_img1, product_img2, product_img3, product_img4, product_img5, product_img6,
     product_img7, product_img8, product_img9, product_img10, product_img11, product_img12,
+    product_img13, product_img14, product_img15, product_img16,
 }
 
-export const categories = ["Headphones", "Speakers", "Watch", "Earbuds", "Mouse", "Decoration"];
+export const categories = ["Headphones", "Speakers", "Watch", "Earbuds", "Mouse", "Decoration", "Camera", "Pen", "Theater", "Cleaner", "Keyboard", "Monitor", "Tablet", "Power Bank"];
 
 export const dummyRatingsData = [
     { id: "rat_1", rating: 4.2, review: "I was a bit skeptical at first, but this product turned out to be even better than I imagined. The quality feels premium, it's easy to use, and it delivers exactly what was promised. I've already recommended it to friends and will definitely purchase again in the future.", user: { name: 'Kristin Watson', image: profile_pic1 }, productId: "prod_1", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
@@ -241,6 +246,66 @@ export const productDummyData = [
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)',
+    },
+    {
+        id: "prod_13",
+        name: "Wireless Mechanical Keyboard",
+        description: "Premium wireless mechanical keyboard with RGB lighting. Perfect for gaming and productivity with responsive switches and long battery life.",
+        mrp: 129,
+        price: 89,
+        images: [product_img13],
+        storeId: "seller_1",
+        inStock: true,
+        store: dummyStoreData,
+        category: "Keyboard",
+        rating: [...dummyRatingsData],
+        createdAt: 'Sat Jul 18 2025 14:51:25 GMT+0530 (India Standard Time)',
+        updatedAt: 'Sat Jul 18 2025 14:51:25 GMT+0530 (India Standard Time)',
+    },
+    {
+        id: "prod_14",
+        name: "4K Ultra HD Monitor",
+        description: "Stunning 27-inch 4K monitor with HDR support. Perfect for content creators and gamers with vibrant colors and smooth performance.",
+        mrp: 449,
+        price: 349,
+        images: [product_img14],
+        storeId: "seller_1",
+        inStock: true,
+        store: dummyStoreData,
+        category: "Monitor",
+        rating: [...dummyRatingsData,...dummyRatingsData],
+        createdAt: 'Sat Jul 17 2025 14:51:25 GMT+0530 (India Standard Time)',
+        updatedAt: 'Sat Jul 17 2025 14:51:25 GMT+0530 (India Standard Time)',
+    },
+    {
+        id: "prod_15",
+        name: "Premium Tablet Pro",
+        description: "High-performance tablet with stylus support. Ideal for digital artists and professionals with powerful processor and stunning display.",
+        mrp: 699,
+        price: 599,
+        images: [product_img15],
+        storeId: "seller_1",
+        inStock: true,
+        store: dummyStoreData,
+        category: "Tablet",
+        rating: [...dummyRatingsData,...dummyRatingsData],
+        createdAt: 'Sat Jul 16 2025 14:51:25 GMT+0530 (India Standard Time)',
+        updatedAt: 'Sat Jul 16 2025 14:51:25 GMT+0530 (India Standard Time)',
+    },
+    {
+        id: "prod_16",
+        name: "Fast Charge Power Bank",
+        description: "20000mAh power bank with fast charging technology. Keep all your devices powered throughout the day with multiple USB ports.",
+        mrp: 59,
+        price: 39,
+        images: [product_img16],
+        storeId: "seller_1",
+        inStock: true,
+        store: dummyStoreData,
+        category: "Power Bank",
+        rating: [...dummyRatingsData],
+        createdAt: 'Sat Jul 15 2025 14:51:25 GMT+0530 (India Standard Time)',
+        updatedAt: 'Sat Jul 15 2025 14:51:25 GMT+0530 (India Standard Time)',
     }
 ];
 
@@ -362,7 +427,7 @@ export const storesDummyData = [
 export const dummyAdminDashboardData = {
     "orders": 6,
     "stores": 2,
-    "products": 12,
+    "products": 16,
     "revenue": "959.10",
     "allOrders": [
         { "createdAt": "2025-08-20T08:46:58.239Z", "total": 145.6 },
