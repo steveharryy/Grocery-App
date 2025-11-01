@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { inngest } from "@/inngest/client"; // adjust path if needed
+import { inngest } from "@/inngest/client";
 
 export async function POST(req) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
@@ -10,6 +10,7 @@ export async function POST(req) {
     return new Response("Missing Clerk webhook secret", { status: 500 });
   }
 
+  // Clerk sends raw text, not JSON
   const payload = await req.text();
   const headerPayload = Object.fromEntries(headers());
 
@@ -25,16 +26,16 @@ export async function POST(req) {
 
   console.log("✅ Clerk event received:", evt.type);
 
-  // Forward to Inngest to handle user sync
+  // Forward event to Inngest for user sync
   await inngest.send({
     name: `clerk/${evt.type}`,
     data: evt.data,
   });
 
-  return new Response("Webhook received", { status: 200 });
+  return new Response("Webhook received successfully", { status: 200 });
 }
 
-// Optional GET handler (prevents 405 for accidental GET requests)
+// Prevent 405 error on GET
 export function GET() {
-  return new Response("Clerk webhook endpoint ready", { status: 200 });
+  return new Response("Clerk webhook endpoint ready ✅", { status: 200 });
 }
