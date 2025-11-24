@@ -1,8 +1,6 @@
 import { Outfit } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/app/StoreProvider";
-import Navbar from "@/components/Navbar"; // <-- Add this
-
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -14,17 +12,23 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-    return (
-          <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-            <html lang="en">
-                <body className={`${outfit.className} antialiased`}>
-                    <StoreProvider>
-                        <Toaster />
-                       
-                        {children}
-                    </StoreProvider>
-                </body>
-            </html>
-        </ClerkProvider>
+    const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    const hasValidClerkKey = clerkKey && !clerkKey.includes('placeholder');
+
+    const content = (
+        <html lang="en">
+            <body className={`${outfit.className} antialiased`}>
+                <StoreProvider>
+                    <Toaster />
+                    {children}
+                </StoreProvider>
+            </body>
+        </html>
     );
+
+    if (hasValidClerkKey) {
+        return <ClerkProvider publishableKey={clerkKey}>{content}</ClerkProvider>;
+    }
+
+    return content;
 }

@@ -1,5 +1,4 @@
 import { Webhook } from "svix";
-import { headers } from "next/headers";
 import { inngest } from "@/inngest/client";
 
 export async function POST(req) {
@@ -12,13 +11,25 @@ export async function POST(req) {
 
   // Clerk sends raw text, not JSON
   const payload = await req.text();
-  const headerPayload = Object.fromEntries(headers());
+
+  // Get headers from the request object
+  const svixId = req.headers.get("svix-id");
+  const svixTimestamp = req.headers.get("svix-timestamp");
+  const svixSignature = req.headers.get("svix-signature");
+
+  if (!svixId || !svixTimestamp || !svixSignature) {
+    return new Response("Missing svix headers", { status: 400 });
+  }
 
   const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt;
   try {
-    evt = wh.verify(payload, headerPayload);
+    evt = wh.verify(payload, {
+      "svix-id": svixId,
+      "svix-timestamp": svixTimestamp,
+      "svix-signature": svixSignature,
+    });
   } catch (err) {
     console.error("❌ Clerk webhook verification failed:", err);
     return new Response("Invalid signature", { status: 400 });

@@ -8,8 +8,20 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const { user } = useUser();
-  const { openSignIn } = useClerk();
+  let user = null;
+  let openSignIn = () => console.log('Clerk not configured');
+  let UserButtonComponent = null;
+
+  try {
+    const userHook = useUser();
+    const clerkHook = useClerk();
+    user = userHook.user;
+    openSignIn = clerkHook.openSignIn;
+    UserButtonComponent = UserButton;
+  } catch (e) {
+    // Clerk not configured
+  }
+
   const router = useRouter();
 
   const [search, setSearch] = useState('');
@@ -65,17 +77,17 @@ const Navbar = () => {
               <button onClick={openSignIn} className="px-6 py-2 bg-green-600 hover:bg-green-700 transition text-white rounded-lg font-semibold">
                 Login
               </button>
-            ) : (
-              <UserButton>
-                <UserButton.MenuItems>
-                  <UserButton.Action
+            ) : UserButtonComponent ? (
+              <UserButtonComponent>
+                <UserButtonComponent.MenuItems>
+                  <UserButtonComponent.Action
                     labelIcon={<PackageIcon size={16} />}
                     label="My Orders"
                     onClick={() => router.push('/orders')}
                   />
-                </UserButton.MenuItems>
-              </UserButton>
-            )}
+                </UserButtonComponent.MenuItems>
+              </UserButtonComponent>
+            ) : null}
           </div>
 
           {/* Mobile User Buttons */}
@@ -84,28 +96,28 @@ const Navbar = () => {
               <button onClick={openSignIn} className="px-6 py-1.5 bg-green-600 hover:bg-green-700 text-sm transition text-white rounded-lg font-semibold">
                 Login
               </button>
-            ) : (
+            ) : UserButtonComponent ? (
               <>
-                <UserButton>
-                  <UserButton.MenuItems>
-                    <UserButton.Action
+                <UserButtonComponent>
+                  <UserButtonComponent.MenuItems>
+                    <UserButtonComponent.Action
                       labelIcon={<ShoppingCart size={16} />}
                       label="Cart"
                       onClick={() => router.push('/cart')}
                     />
-                  </UserButton.MenuItems>
-                </UserButton>
-                <UserButton>
-                  <UserButton.MenuItems>
-                    <UserButton.Action
+                  </UserButtonComponent.MenuItems>
+                </UserButtonComponent>
+                <UserButtonComponent>
+                  <UserButtonComponent.MenuItems>
+                    <UserButtonComponent.Action
                       labelIcon={<PackageIcon size={16} />}
                       label="My Orders"
                       onClick={() => router.push('/orders')}
                     />
-                  </UserButton.MenuItems>
-                </UserButton>
+                  </UserButtonComponent.MenuItems>
+                </UserButtonComponent>
               </>
-            )}
+            ) : null}
           </div>
 
         </div>
